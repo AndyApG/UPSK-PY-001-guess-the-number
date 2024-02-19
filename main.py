@@ -16,7 +16,7 @@ while winner == False:
     print(f'--Round {round_number}--')
 
     ask_gess(player_name)
-    player_guess = save_gess()
+    player_guess = read_gess()
     player_result = qualify_guess(player_guess,NUMBER_WINNER)
     print(player_result)
     winner = is_winner(player_result)

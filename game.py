@@ -7,7 +7,7 @@ def gretting(name):
 def ask_gess(player):
     print(f'{player}, enter your guess: ')
 
-def save_gess():
+def read_gess():
     return(int(input()))
 
 def qualify_guess(guess, number):
