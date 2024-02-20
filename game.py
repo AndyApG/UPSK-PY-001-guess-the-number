@@ -1,3 +1,4 @@
+from random import randint
 def ask_name():
     return input('What is your first name ',)
     
@@ -23,5 +24,12 @@ def is_winner(result):
         return True
     else: 
         return False
+    
+def random(min,max):
+    return randint(min,max)
+
+def middle_point(a,b):
+    return ((a + b) // 2)
+
 
 
