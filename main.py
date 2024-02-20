@@ -31,15 +31,15 @@ while winner == False:
     sleep(2)  
     ask_gess('Computer Player')
     #computer_guess = random(1,100)
-    computer_guess = middle_point(computer_guess_list[-1],player_guess_list[-1])  
+    #computer_guess = middle_point(computer_guess_list[-1],player_guess_list[-1]) 
+    computer_guess = select_random(computer_guess_list[-1]+1,player_guess_list[-1]) 
     sleep(2) 
     print(computer_guess)
     computer_result = qualify_guess(computer_guess,NUMBER_WINNER)
     computer_guess_list.append(computer_guess)
     sleep(2) 
     print(computer_result)
-    is_winner(computer_result)
-
+    winner = is_winner(computer_result)
     if winner:
         break
 

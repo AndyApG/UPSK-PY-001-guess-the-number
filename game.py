@@ -31,5 +31,12 @@ def random(min,max):
 def middle_point(a,b):
     return ((a + b) // 2)
 
+def select_random(a,b):
+    if a < b:
+        return random(a,b + 1)
+    elif b < a:
+        return random(b,a)
+    else:
+        return a + 1
 
 
