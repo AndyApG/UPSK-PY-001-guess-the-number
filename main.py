@@ -10,14 +10,10 @@ computer_guess_list = [0]
 round_number = 1
 winner = False
 
-
-
 gretting(player_name)
 
 while winner == False:
     print(f'--Round {round_number}--')
-    sleep(2)  
-
     ask_gess(player_name)
     player_guess = read_gess()
     player_result = qualify_guess(player_guess,NUMBER_WINNER)
@@ -26,6 +22,10 @@ while winner == False:
     player_guess_list.append(player_guess)
     winner = is_winner(player_result)
     if winner:
+        print(f"{player_name}'s guess list", player_guess_list)
+        print("Computer's guess list", computer_guess_list[1:])
+        play_q = input("Play again? ",)
+        new_game(play_q)
         break
          
     sleep(2)  
@@ -41,9 +41,11 @@ while winner == False:
     print(computer_result)
     winner = is_winner(computer_result)
     if winner:
+        print(f"{player_name}'s guess list", player_guess_list)
+        print("Computer's guess list", computer_guess_list[1:])
+        play_q = input("Play again? ",)
+        new_game(play_q)
         break
 
     round_number+=1
 
-print(f"{player_name}'s guess list", player_guess_list)
-print("Computer's guess list", computer_guess_list[1:])
