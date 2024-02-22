@@ -1,4 +1,6 @@
 from random import randint
+import os
+
 def ask_name():
     return input('What is your first name ',)
     
@@ -33,10 +35,17 @@ def middle_point(a,b):
 
 def select_random(a,b):
     if a < b:
-        return random(a,b + 1)
+        return random(a,b)
     elif b < a:
         return random(b,a)
     else:
-        return a + 1
+        return b + 1
+    
+def new_game(play):
+    if play == 'Y' or play == "yes" or play == "Yes" or play == "S" or play == "si":
+        os.system('python main.py')
+    else:
+        print("Tanks!")
+
 
 
