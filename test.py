@@ -3,12 +3,7 @@ from unittest import mock
 import io
 
 
-from game import ask_name, read_gess, qualify_guess, middle_point, is_winner
-
-class TestReadGuess(unittest.TestCase):
-    
-    
-
+from game import ask_name, read_guess, qualify_guess, middle_point, is_winner
 
 class TestQualifyGuess(unittest.TestCase):
     def test_lower_guess(self):

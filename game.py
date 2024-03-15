@@ -10,7 +10,7 @@ def gretting(name):
 def ask_guess(player):
     print(f'{player}, enter your guess: ')
 
-def read_gess():
+def read_guess():
     while True:
         try:
             number = int(input(""))

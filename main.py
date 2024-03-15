@@ -27,9 +27,9 @@ while winner == False:
     # Show the number of round
     print(f'--Round {round_number}--')
     # Ask the guess of the player
-    ask_gess(player_name)
+    ask_guess(player_name)
     # Save the player's guess in the variable players_guess
-    player_guess = read_gess()
+    player_guess = read_guess()
     # Compare the number winner with the guess and save the result in player_result
     player_result = qualify_guess(player_guess,NUMBER_WINNER)
     # Wait two seconds and show the result
@@ -50,7 +50,7 @@ while winner == False:
          
     sleep(2)  
     # Do the guess of computer and wait 2 seconds to show it
-    ask_gess('Computer Player')
+    ask_guess('Computer Player')
     #computer_guess = random(1,100)
     #computer_guess = middle_point(computer_guess_list[-1],player_guess_list[-1]) 
     computer_guess = select_random(computer_guess_list[-1]+1,player_guess_list[-1]) 
