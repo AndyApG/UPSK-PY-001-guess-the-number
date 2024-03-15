@@ -7,11 +7,23 @@ def ask_name():
 def gretting(name):
    print(f'{name}, welcome to the guess number game we going to satart ...')
 
-def ask_gess(player):
+def ask_guess(player):
     print(f'{player}, enter your guess: ')
 
 def read_gess():
-    return(int(input()))
+    while True:
+        try:
+            number = int(input(""))
+        except ValueError:
+            print("Write a number")
+            continue
+
+        if 0 >= number or number > 100:
+            print("Your guess must be between 1 and 100")
+            continue
+        else:
+            return number
+    
 
 def qualify_guess(guess, number):
     if guess < number:
