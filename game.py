@@ -1,15 +1,4 @@
 from random import randint
-import os
-
-def ask_name():
-    return input('What is your first name ',)
-    
-def gretting(name):
-   print(f'{name}, welcome to the guess number game we going to satart ...')
-
-def ask_guess(player):
-    print(f'{player}, enter your guess: ')
-
 def read_guess():
     while True:
         try:
@@ -23,41 +12,54 @@ def read_guess():
             continue
         else:
             return number
-    
-
-def qualify_guess(guess, number):
-    if guess < number:
-        return('Too low!')
-    elif guess > number:
-        return('Too high!')
-    else:
-        return('you winn!')
-    
-def is_winner(result):
-    if result == 'you winn!':
-        return True
-    else: 
-        return False
-    
-def random(min,max):
-    return randint(min,max)
 
 def middle_point(a,b):
     return ((a + b) // 2)
 
-def select_random(a,b):
-    if a < b:
-        return random(a,b)
-    elif b < a:
-        return random(b,a)
-    else:
-        return b + 1
+class Game:
     
-def new_game(play):
-    if play == 'Y' or play == "yes" or play == "Yes" or play == "S" or play == "si":
-        os.system('python main.py')
-    else:
-        print("Tanks!")
+    def __init__(self):
+        self.numberWinner = randint(1,100)
+        self.winner = ""
+        self.players = ["Computer"]
+        print("Welcome to the guess number game")
+
+    def ask_name(self):
+        name = input('What is your name ',)
+        self.players.append(name)
+
+    def play_turn(self, player = str):
+        print(f"Turn {player}, make a guess: \n")
+
+
+    def check_guess(self,guess = int,player = str):
+        if guess < self.numberWinner:
+            self.result = 'Too low!'
+        elif guess > self.numberWinner:
+            self.result = 'Too high!'
+        else:
+            self.result = 'you winn!'
+            self.winner = player
+
+
+class Player:
+    
+
+    def __init__(self,name = str):
+        self.name = name
+        self.guesses = [0]
+        
+
+    def make_guess(self):
+       self.guess = read_guess()
+       self.guesses.append(self.guess)
+       
+    
+class Computer(Player):
+
+    def make_guess(self,a,b):
+        self.guess = middle_point(a,b)
+        self.guesses.append(self.guess)
 
 
 

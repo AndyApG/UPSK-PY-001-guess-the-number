@@ -2,74 +2,44 @@
 from time import sleep
 from game import *
 
-# Selecting the number winner randomly
+if __name__ == '__main__':
+    game = Game()
+    game.ask_name()
 
-NUMBER_WINNER = random(1,100)
+    player = Player(game.players[1])
+    computer = Computer(game.players[0])
 
-# Ask the name of player
-player_name = ask_name()
+    while(game.winner == ""):
 
-# Defining the list to save the guess of the players and computer 
-player_guess_list = []
-computer_guess_list = [0]
-
-# Couter of rounds
-round_number = 1
-
-# The variable winnwer is the answer to function is_winner 
-# by default there are not winner because the game is not start yet
-winner = False
-
-
-gretting(player_name)
-
-while winner == False:
-    # Show the number of round
-    print(f'--Round {round_number}--')
-    # Ask the guess of the player
-    ask_guess(player_name)
-    # Save the player's guess in the variable players_guess
-    player_guess = read_guess()
-    # Compare the number winner with the guess and save the result in player_result
-    player_result = qualify_guess(player_guess,NUMBER_WINNER)
-    # Wait two seconds and show the result
-    sleep(2)  
-    print(player_result)
-    # Add the guess to the list of player's guesse
-    player_guess_list.append(player_guess)
-    # Verify if the user won and update the value of winner  
-    winner = is_winner(player_result)
-    # If the user is the winner print her list of guesses 
-    # and ask if she want to play again
-    if winner:
-        print(f"{player_name}'s guess list", player_guess_list)
-        print("Computer's guess list", computer_guess_list[1:])
-        play_q = input("Play again? ",)
-        new_game(play_q)
-        break
+        game.play_turn(player.name)
+        player.make_guess()
+        game.check_guess(player.guess,player.name)
+        print(game.result)
          
-    sleep(2)  
-    # Do the guess of computer and wait 2 seconds to show it
-    ask_guess('Computer Player')
-    #computer_guess = random(1,100)
-    #computer_guess = middle_point(computer_guess_list[-1],player_guess_list[-1]) 
-    computer_guess = select_random(computer_guess_list[-1]+1,player_guess_list[-1]) 
-    sleep(2) 
-    print(computer_guess)
-    # Compare the guess whit the number winner and save the reult in computer_result
-    computer_result = qualify_guess(computer_guess,NUMBER_WINNER)
-    # Add the guess to the list of Computer's guesses and wait 2 seconds
-    computer_guess_list.append(computer_guess)
-    sleep(2) 
-    print(computer_result)
-    # Verify if the computer won
-    winner = is_winner(computer_result)
-    if winner:
-        print(f"{player_name}'s guess list", player_guess_list)
-        print("Computer's guess list", computer_guess_list[1:])
-        play_q = input("Play again? ",)
-        new_game(play_q)
-        break
+        if(game.result == "you winn!"):
+            print(player.guesses[1:])
+            res = input("Play again? y/n :")
+            if(res == "y"):
+                player = Player(game.players[1])
+                computer = Computer(game.players[0])
+                game = Game()
+                
+            else:
+                break
+        else:
+            game.play_turn(computer.name)
+            computer.make_guess(computer.guesses[-1],player.guesses[-1])
+            print(computer.guess)
+            game.check_guess(computer.guess,computer.name)
+            print(game.result)
 
-    round_number+=1
+            if(game.result == "you winn!"):
+                print(computer.guesses[1:])
+                res = input("Play again? y/n :")
+                if(res == "y"):
+                    player = Player(game.players[1])
+                    computer = Computer(game.players[0])
+                    game = Game()
+                else:
+                    break
 

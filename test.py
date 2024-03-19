@@ -3,28 +3,43 @@ from unittest import mock
 import io
 
 
-from game import ask_name, read_guess, qualify_guess, middle_point, is_winner
+from game import *
+
+class GameTest (Game):
+            def __init__(self):
+                self.numberWinner = 10
+                self.winner = ""
+                self.players = ["Computer","Player"]
+
+game = GameTest() 
 
 class TestQualifyGuess(unittest.TestCase):
+   
+
     def test_lower_guess(self):
         """
         It test a lower guess 
         """
-        self.assertEqual(qualify_guess(5,10),"Too low!",
+        game.check_guess(5,"Player")
+        
+        self.assertEqual(game.result,"Too low!",
                          "Should be \"Too low!\"")
 
     def test_higher_guess(self):
         """
         It test a higher guess
         """
-        self.assertEqual(qualify_guess(20,10),"Too high!",
+        game.check_guess(20,"Player")
+
+        self.assertEqual(game.result,"Too high!",
                          "Should be \"Too high!\"")
 
     def test_correct_guess(self):
         """
         It test a correct guess
         """
-        self.assertEqual(qualify_guess(10,10),"you winn!",
+        game.check_guess(10,"Player")
+        self.assertEqual(game.result,"you winn!",
                          "Should be \"you winn!\"")
         
     
@@ -41,10 +56,6 @@ class TestMiddlePoint(unittest.TestCase):
         self.assertEqual(middle_point(-1,10),4,
                           "Should be 4")
         
-class TestIsWinner(unittest.TestCase):
-    def test_is_winner(self):
-        self.assertTrue(is_winner('you winn!'),"Should be True")
-        self.assertFalse(is_winner('Too low!'),"Should be False")
 
 
 if __name__ == "__main__":
