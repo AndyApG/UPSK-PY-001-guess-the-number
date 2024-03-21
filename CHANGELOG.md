@@ -28,3 +28,18 @@ change boilerplate
 ### Removed
 
 * Remove README.md and folder docs
+
+## 1.2.0 - 2024-03-19
+
+### Sprint learnings
+
+Class
+Objects
+Metods
+Herical
+
+### Added
+
+Class Game
+Class Player
+
