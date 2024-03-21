@@ -1,17 +1,5 @@
 from random import randint
-def read_guess():
-    while True:
-        try:
-            number = int(input(""))
-        except ValueError:
-            print("Write a number")
-            continue
-
-        if 0 >= number or number > 100:
-            print("Your guess must be between 1 and 100")
-            continue
-        else:
-            return number
+      
 
 def middle_point(a,b):
     return ((a + b) // 2)
@@ -20,16 +8,30 @@ class Game:
     
     def __init__(self):
         self.numberWinner = randint(1,100)
-        self.winner = ""
-        self.players = ["Computer"]
-        print("Welcome to the guess number game")
+        self.round = 0
+        self.winner = None
+        self.players = ["Computer","Player"]
 
     def ask_name(self):
         name = input('What is your name ',)
-        self.players.append(name)
+        self.players[1] = name
 
-    def play_turn(self, player = str):
-        print(f"Turn {player}, make a guess: \n")
+    def play_turn(self):
+        self.round += 1
+        
+        if(self.round%2 == 1):
+            name = self.players[1]
+        else:
+            name = self.players[0]
+
+        return name
+
+    def isguess_valid(self, number = int):
+
+        if 0 >= number or number > 100:
+            return True
+        else:
+            return False
 
 
     def check_guess(self,guess = int,player = str):
@@ -47,11 +49,11 @@ class Player:
 
     def __init__(self,name = str):
         self.name = name
-        self.guesses = [0]
+        self.guesses = []
         
 
     def make_guess(self):
-       self.guess = read_guess()
+       self.guess = int(input(""))
        self.guesses.append(self.guess)
        
     
