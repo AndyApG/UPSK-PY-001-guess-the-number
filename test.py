@@ -1,55 +1,60 @@
-from unittest import TestCase, main
-from unittest.mock import patch
-from game import *
+#https://docs.python.org/es/3.10/library/unittest.mock-examples.html
+import unittest
+from unittest.mock import patch, MagicMock
+from game import Game, Player, Computer
 
 
-class GameTest(Game):
-    name_player = "Player"
-    @patch('builtins.input', return_value = name_player)
+class TestGame(unittest.TestCase):
+    def setUp(self):
+        self.game = Game()
+        mock_number_winner = MagicMock()
+        mock_number_winner.return_value = 10
+        self.game.number_winner = mock_number_winner()
+        mock_name_player = MagicMock()
+        mock_name_player.return_value = "Player"
+        self.game.name_player = mock_name_player()
+        mock_players = MagicMock()
+        mock_players.return_value = ["Computer",self.game.name_player]
+        self.game.players = mock_players()
     
-    def __init__(self,mock_intput):
-        self.number_winner = 10
-        self.turn = 0
-        self.name_winner = None
-        self.guesses_winner = []
-        self.players = ["Computer",mock_intput()]
+    def test_name_player(self):
+        self.assertEqual(self.game.name_player,'Player')
+        self.assertEqual(self.game.players,["Computer","Player"])
 
-game = GameTest()
-class TestGameMethods(TestCase):
-   def setUp(self):
-        self.game =  GameTest()
-   
-    def test_players_name(self):
+    def test_number_winner(self):
+        self.assertEqual(self.game.number_winner,10)
+
+    def test_check_guess(self):
+        self.game.check_guess(20,"Player",[])
+        self.assertEqual(self.game.result,'Too high!')
+        self.game.check_guess(5,"Player",[])
+        self.assertEqual(self.game.result,'Too low!')
+        self.game.check_guess(10,"Player",[])
+        self.assertEqual(self.game.result,'Player you winn!')
+
+    def test_play_turn(self):
+        first_turn = self.game.play_turn() 
+        self.assertEqual(first_turn,"Player")
+        second_turn = self.game.play_turn()
+        self.assertEqual(second_turn,"Computer")
+
+class TestPlayer(unittest.TestCase):
+    def setUp(self):
+        self.player = Player('Player')
+        mock_make_guess = MagicMock()
+        mock_make_guess.return_value = 10
+    
+    
+class TestComputer(unittest.TestCase):
+    def setUp(self):
+        self.computer = Computer("Computer")
+                            
+    def test_make_guess(self):
+        self.computer.make_guess(1)
+        self.assertGreaterEqual(self.computer.guess,1)
+        self.assertEqual(self.computer.guesses.__len__(),1)
+
         
-        "It test the player's name"
-        self.assertEqual(game.players[1],"Player")
-        self.assertEqual(game.players[0],"Computer")
-    def test_lower_guess(self):
-        """
-        It test a lower guess 
-        """
-        game.check_guess(5,"Player",[])
         
-        self.assertEqual(game.result,"Too low!",
-                         "Should be \"Too low!\"")
-
-    def test_higher_guess(self):
-        """
-        It test a higher guess
-        """
-        game.check_guess(20,"Player",[5])
-
-        self.assertEqual(game.result,"Too high!",
-                         "Should be \"Too high!\"")
-
-    def test_correct_guess(self):
-        """
-        It test a correct guess
-        """
-        game.check_guess(10,"Player",[5,20,10])
-        self.assertEqual(game.result,"Player you winn!",
-                         "Should be \"you winn!\"")
-        
-      
 if __name__ == "__main__":
-    main()
+    unittest.main(verbosity=2)
